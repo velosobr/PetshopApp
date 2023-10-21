@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PetshopApp</string>
+    <string name="app_menu_cart">Carrinho</string>
+    <string name="app_menu_home">home</string>
+    <string name="app_menu_details">detalhes</string>
+
+    //navigation
+    <string name="home_items_screen_title">Home Pet Items</string>
+    <string name="details_screen_title">Details</string>
+    <string name="cart_screen_title">Cart</string>
+    <string name="error_loading_petshop_items">Error when trying to load Petshop Items</string>
+    <string name="common_try_again">Try again\n</string>
+
 </resources>
