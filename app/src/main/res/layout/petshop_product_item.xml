@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="260dp"
     android:layout_margin="24dp"
-    app:strokeWidth="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#C3C3C3"
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,26 +27,26 @@
         <TextView
             android:id="@+id/description_text"
             android:layout_width="172dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:ellipsize="end"
-            android:maxLines="1"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_petshop_item"
-            app:layout_constraintVertical_bias="0.25"
             tools:text="Item Item Item Item Item Item Item Item Item Item " />
 
         <TextView
-            android:id="@+id/weight_text"
+            android:id="@+id/amount_text"
             android:layout_width="120dp"
             android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/description_text"
             app:layout_constraintTop_toBottomOf="@+id/description_text"
-            tools:text="Item1 Item1 Item1 Item1 Item1 " />
+            tools:text="500,00" />
 
         <Button
             android:id="@+id/addItem"

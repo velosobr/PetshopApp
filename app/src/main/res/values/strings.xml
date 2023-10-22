@@ -12,5 +12,6 @@
     <string name="common_try_again">Try again\n</string>
     <string name="addItem">+ add</string>
     <string name="removeItem">-</string>
+    <string name="valor_amount">R$ %1$s</string>
 
 </resources>

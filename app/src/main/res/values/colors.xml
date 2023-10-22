@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="medium_grey">#D1D1D1</color>
+    <color name="Header">#D1D1D1</color>
+
 </resources>

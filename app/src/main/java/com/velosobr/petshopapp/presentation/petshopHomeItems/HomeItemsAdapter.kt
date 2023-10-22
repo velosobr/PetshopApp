@@ -1,11 +1,13 @@
 package com.velosobr.petshopapp.presentation.petshopHomeItems
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.velosobr.petshopapp.R
 import com.velosobr.petshopapp.databinding.PetshopProductItemBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
 
@@ -47,6 +49,11 @@ class HomeItemsAdapter : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
 
         holder.binding.apply {
             descriptionText.text = currentProductItem.description
+            amountText.text =
+                holder.binding.amountText.context.getString(
+                    R.string.valor_amount,
+                    currentProductItem.amount
+                )
 
             imagePetshopItem.load(currentProductItem.imageUrl) {
                 crossfade(true)
