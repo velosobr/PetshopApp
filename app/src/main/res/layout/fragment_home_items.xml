@@ -1,29 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flipper_characters"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8E8E8"
     tools:context=".presentation.petshopHomeItems.HomeItemsFragment">
 
-    <include
-        android:id="@+id/include_view_home_items_loading_state"
-        layout="@layout/include_view_home_items_loading_state"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_petshop_items"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/petshop_product_item" />
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tollbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/app_menu_itens"
+            app:titleTextColor="@android:color/white" />
+
+        <include
+            android:id="@+id/include_view_home_items_loading_state"
+            layout="@layout/include_view_home_items_loading_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tollbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_petshop_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tollbar"
+            tools:listitem="@layout/petshop_product_item" />
+
+        <include
+            android:id="@+id/include_view_petshop_items_error_state"
+            layout="@layout/include_view_petshop_items_error_state"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tollbar" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <include
-        android:id="@+id/include_view_petshop_items_error_state"
-        layout="@layout/include_view_petshop_items_error_state" />
-</ViewFlipper>
+</RelativeLayout>

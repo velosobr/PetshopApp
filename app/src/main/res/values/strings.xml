@@ -10,5 +10,7 @@
     <string name="cart_screen_title">Cart</string>
     <string name="error_loading_petshop_items">Error when trying to load Petshop Items</string>
     <string name="common_try_again">Try again\n</string>
+    <string name="addItem">+ add</string>
+    <string name="removeItem">-</string>
 
 </resources>

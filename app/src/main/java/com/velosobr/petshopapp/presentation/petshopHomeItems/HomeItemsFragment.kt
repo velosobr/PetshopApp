@@ -4,26 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
+import com.velosobr.petshopapp.R
 import com.velosobr.petshopapp.databinding.FragmentHomeItemsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
+@ExperimentalBadgeUtils
 @AndroidEntryPoint
 class HomeItemsFragment : Fragment() {
 
-    private var _binding: FragmentHomeItemsBinding? = null
-    private val binding: FragmentHomeItemsBinding get() = _binding!!
+    private lateinit var _binding: FragmentHomeItemsBinding
+    private val binding: FragmentHomeItemsBinding get() = _binding
 
     private val viewModel: HomeItemsViewModel by viewModels()
 
     private lateinit var homeItemsAdapter: HomeItemsAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +42,26 @@ class HomeItemsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupHomeItems()
+        configureBadgeCount()
+    }
+
+    private fun configureBadgeCount(count: Int = 0) {
+        val toolbar: MaterialToolbar = binding.tollbar
+        val badgeDrawable = BadgeDrawable.create(requireContext()).apply {
+            isVisible = true
+            backgroundColor = ContextCompat.getColor(requireContext(), R.color.black)
+            number = count
+        }
+
+        toolbar.setOnMenuItemClickListener {
+//            Toast.makeText(requireContext(), "Clicou", Toast.LENGTH_LONG).show()
+//            configureBadgeCount(3)
+
+            findNavController().navigate(R.id.cartFragment)
+            true
+        }
+
+        BadgeUtils.attachBadgeDrawable(badgeDrawable, toolbar, R.id.cart)
 
     }
 
@@ -53,7 +77,7 @@ class HomeItemsFragment : Fragment() {
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is HomeItensState.Error ->{
+                is HomeItensState.Error -> {
                     binding.includeViewPetshopItemsErrorState.root.visibility = View.VISIBLE
                     binding.includeViewHomeItemsLoadingState.shimmerPetshopItems.visibility =
                         View.GONE

@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_app"
-        android:layout_width="0dp"
-        android:background="?attr/colorPrimary"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@android:color/white"
-        app:navigationIcon=""
-        />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_container"
@@ -26,7 +15,7 @@
         app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_app"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:navGraph="@navigation/main_nav" />
 
