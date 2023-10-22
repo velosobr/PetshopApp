@@ -27,19 +27,17 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        binding.bottomNavMain.setupWithNavController(navController)
+//        appBarConfiguration = AppBarConfiguration(
+//            setOf(R.id.homeItemsFragment, R.id.detailsFragment, R.id.cartFragment, )
+//        )
 
-        appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeItemsFragment, R.id.detailsFragment, R.id.cartFragment, )
-        )
-
-        binding.toolbarApp.setupWithNavController(navController, appBarConfiguration)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            val isTopLevelDestination =
-                appBarConfiguration.topLevelDestinations.contains(destination.id)
-            if (!isTopLevelDestination) {
-                binding.toolbarApp.setNavigationIcon(R.drawable.ic_back)
-            }
-        }
+//        binding.toolbarApp.setupWithNavController(navController, appBarConfiguration)
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            val isTopLevelDestination =
+//                appBarConfiguration.topLevelDestinations.contains(destination.id)
+//            if (!isTopLevelDestination) {
+//                binding.toolbarApp.setNavigationIcon(R.drawable.ic_back)
+//            }
+//        }
     }
 }

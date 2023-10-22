@@ -18,7 +18,9 @@ Coroutine, LiveData, Retrofit2, Coil, Dagger-Hilt, mockk & JUnit.
   - add items to cart.
 
 ## improvements todo
-
+kapt to ksp
+separate into core and app modules
+create a cache for offline first with a new datasource layer
 
 ## improvements done
 

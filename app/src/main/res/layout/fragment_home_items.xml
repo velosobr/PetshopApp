@@ -9,15 +9,19 @@
 
     <include
         android:id="@+id/include_view_home_items_loading_state"
-        layout="@layout/include_view_home_items_loading_state" />
+        layout="@layout/include_view_home_items_loading_state"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_characters"
+        android:id="@+id/recycler_petshop_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/petshop_item_rv" />
+        tools:listitem="@layout/petshop_product_item" />
+
+
+
 
     <include
         android:id="@+id/include_view_petshop_items_error_state"

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
-    android:layout_margin="8dp"
+    android:layout_height="260dp"
+    android:layout_margin="24dp"
     app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,17 +23,27 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/text_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/description_text"
+            android:layout_width="172dp"
+            android:layout_height="30dp"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_petshop_item"
+            app:layout_constraintVertical_bias="0.25"
             tools:text="Item Item Item Item Item Item Item Item Item Item " />
+
+        <TextView
+            android:id="@+id/weight_text"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/description_text"
+            app:layout_constraintTop_toBottomOf="@+id/description_text"
+            tools:text="Item1 Item1 Item1 Item1 Item1 " />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
