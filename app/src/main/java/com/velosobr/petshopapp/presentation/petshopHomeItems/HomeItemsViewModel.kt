@@ -35,7 +35,7 @@ class HomeItemsViewModel @Inject constructor(
         }
     }
 
-    private fun addItemToCart(itemProductItem: ProductItem) = viewModelScope.launch(Dispatchers.IO) {
+    private fun addItemToCart(itemProductItem: ProductItem) = viewModelScope.launch {
         runCatching {
             val count = addProductItemToCartUseCase.invoke(itemProductItem)
             _state.value = HomeItemsState.CartItemAdded(count)
@@ -44,7 +44,7 @@ class HomeItemsViewModel @Inject constructor(
         }
     }
 
-    private fun removeItemToCart(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+    private fun removeItemToCart(id: Int) = viewModelScope.launch {
         runCatching {
             val count = removeProductItemToCartUseCase.invoke(id)
             _state.value = HomeItemsState.CartItemRemoved(count)

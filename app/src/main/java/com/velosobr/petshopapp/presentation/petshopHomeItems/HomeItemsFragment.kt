@@ -62,15 +62,6 @@ class HomeItemsFragment : Fragment() {
     }
 
     private fun setupHomeItems() {
-        homeItemsAdapter = HomeItemsAdapter {
-            viewModel.updateCart(it)
-        }
-        with(binding.recyclerPetshopItems) {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = homeItemsAdapter
-        }
-
         viewModel.fetchPetShopProductItems()
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
@@ -94,7 +85,14 @@ class HomeItemsFragment : Fragment() {
                         View.GONE
                     binding.includeViewPetshopItemsErrorState.root.visibility = View.GONE
                     binding.recyclerPetshopItems.visibility = View.VISIBLE
-                    homeItemsAdapter.productItemList = state.items
+                    homeItemsAdapter = HomeItemsAdapter(state.items) {
+                        viewModel.updateCart(it)
+                    }
+                    with(binding.recyclerPetshopItems) {
+                        setHasFixedSize(true)
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = homeItemsAdapter
+                    }
                 }
 
                 is HomeItemsState.CartItemAdded -> configureBadgeCount(state.count)

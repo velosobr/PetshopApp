@@ -11,29 +11,33 @@ import com.velosobr.petshopapp.databinding.PetshopProductItemBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
 
 class HomeItemsAdapter(
+    private val products: List<ProductItem>,
     private val onClickButton: (ProductItem) -> Unit
 ) : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(val binding: PetshopProductItemBinding) :
         RecyclerView.ViewHolder(binding.root)
+//
+//    private val diffCallBack = object : DiffUtil.ItemCallback<ProductItem>() {
+//        override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
+//            return oldItem.id == newItem.id
+//        }
+//
+//        override fun areContentsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
+//            return newItem == oldItem
+//        }
+//    }
+//
+//    private val differ = AsyncListDiffer(this, diffCallBack)
+//
+//    var productItemList: List<ProductItem>
+//        get() = differ.currentList
+//        set(value) {
+//            differ.submitList(value)
+//        }
 
-    private val diffCallBack = object : DiffUtil.ItemCallback<ProductItem>() {
-        override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
-            return oldItem.id == newItem.id
-        }
 
-        override fun areContentsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
-            return newItem == oldItem
-        }
-    }
-
-    private val differ = AsyncListDiffer(this, diffCallBack)
-
-    var productItemList: List<ProductItem>
-        get() = differ.currentList
-        set(value) {
-            differ.submitList(value)
-        }
+    var productItemList: MutableList<ProductItem> = products.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -71,10 +75,9 @@ class HomeItemsAdapter(
                     } else {
                         productItem
                     }
-                }
+                }.toMutableList()
                 productCartButton.text = if (productSelected.isAddedToCart) "- remove" else "+ add"
-                notifyItemChanged(position)
-
+                notifyDataSetChanged()
                 onClickButton(productSelected)
 
             }

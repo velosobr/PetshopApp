@@ -12,6 +12,7 @@ import com.velosobr.petshopapp.data.repository.CartRepository
 import com.velosobr.petshopapp.domain.model.ProductItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.single
 import okio.IOException
@@ -30,7 +31,7 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addItem(item: ProductItem): Int {
-        val products = getProducts().single().toMutableList()
+        val products = getProducts().toMutableList()
         products.add(item)
 
         dataStore.edit { preferences ->
@@ -40,7 +41,7 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeItem(id: Int): Int {
-        val products = getProducts().single().toMutableList().apply {
+        val products = getProducts().toMutableList().apply {
             val product = firstOrNull { it.id == id }
             if (product != null) {
                 remove(product)
@@ -54,24 +55,26 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProducts(): List<ProductItem> {
-         dataStore.data.catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map { preferences ->
+        val preferences = dataStore.data.first()
 
-            val localProducts = preferences[cartsKey]
-            if (localProducts.isNullOrEmpty()) {
-                initCartsDataStore()
-                emptyList()
-            } else {
-                val result: ArrayList<ProductItem> = jsonToProducts(localProducts)
-                result.toList()
-            }
+//        { exception ->
+//            if (exception is IOException) {
+//                emit(emptyPreferences())
+//            } else {
+//                throw exception
+//            }
+//        }.map { preferences ->
+
+        val localProducts = preferences[cartsKey]
+        return if (localProducts.isNullOrEmpty()) {
+            initCartsDataStore()
+            emptyList()
+        } else {
+            val result: ArrayList<ProductItem> = jsonToProducts(localProducts)
+            result.toList()
         }
     }
+
 
     private fun jsonToProducts(localProducts: String): ArrayList<ProductItem> {
         val type = object : TypeToken<ArrayList<ProductItem>>() {}.type

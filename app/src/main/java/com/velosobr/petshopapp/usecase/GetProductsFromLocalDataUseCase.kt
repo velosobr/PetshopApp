@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface GetProductsFromLocalDataUseCase {
-    suspend fun invoke(): Flow<List<ProductItem>>
+    suspend fun invoke(): List<ProductItem>
 }
 
 class GetProductsFromLocalDataUsecaseImpl @Inject constructor(
