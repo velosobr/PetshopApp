@@ -54,57 +54,57 @@ class HomeItemsFragment : Fragment() {
         }
 
         toolbar.setOnMenuItemClickListener {
-//            Toast.makeText(requireContext(), "Clicou", Toast.LENGTH_LONG).show()
-//            configureBadgeCount(3)
-
             findNavController().navigate(R.id.cartFragment)
             true
         }
 
         BadgeUtils.attachBadgeDrawable(badgeDrawable, toolbar, R.id.cart)
-
     }
 
     private fun setupHomeItems() {
-        homeItemsAdapter = HomeItemsAdapter()
+        homeItemsAdapter = HomeItemsAdapter {
+            viewModel.updateCart(it)
+        }
         with(binding.recyclerPetshopItems) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = homeItemsAdapter
         }
 
-        viewModel.fetchPetshopProductItems()
+        viewModel.fetchPetShopProductItems()
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is HomeItensState.Error -> {
+                is HomeItemsState.Error -> {
                     binding.includeViewPetshopItemsErrorState.root.visibility = View.VISIBLE
                     binding.includeViewHomeItemsLoadingState.shimmerPetshopItems.visibility =
                         View.GONE
                     binding.recyclerPetshopItems.visibility = View.GONE
-
                 }
 
-                is HomeItensState.Loading -> {
+                is HomeItemsState.Loading -> {
                     binding.includeViewHomeItemsLoadingState.shimmerPetshopItems.visibility =
                         View.VISIBLE
                     binding.includeViewPetshopItemsErrorState.root.visibility = View.GONE
-
                     binding.recyclerPetshopItems.visibility = View.GONE
                 }
 
-                is HomeItensState.Success -> {
+                is HomeItemsState.Success -> {
                     binding.includeViewHomeItemsLoadingState.shimmerPetshopItems.visibility =
                         View.GONE
                     binding.includeViewPetshopItemsErrorState.root.visibility = View.GONE
-
                     binding.recyclerPetshopItems.visibility = View.VISIBLE
-
                     homeItemsAdapter.productItemList = state.items
                 }
-            }
 
+                is HomeItemsState.CartItemAdded -> configureBadgeCount(state.count)
+                is HomeItemsState.CartItemRemoved -> configureBadgeCount(state.count)
+                is HomeItemsState.CartError -> Toast.makeText(
+                    requireContext(),
+                    state.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
-
 }

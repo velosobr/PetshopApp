@@ -23,23 +23,23 @@ class CartRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) : CartRepository {
     private val cartsKey = stringPreferencesKey(CARTS_KEY)
-    suspend fun initCartsDataStore() {
-
+    private suspend fun initCartsDataStore() {
         dataStore.edit { preferences ->
             preferences[cartsKey] = Gson().toJson(listOf<ProductItem>())
         }
     }
 
-    override suspend fun AddItem(item: ProductItem) {
+    override suspend fun addItem(item: ProductItem): Int {
         val products = getProducts().single().toMutableList()
         products.add(item)
 
         dataStore.edit { preferences ->
             preferences[cartsKey] = Gson().toJson(products)
         }
+        return products.size
     }
 
-    override suspend fun RemoveItem(id: Int) {
+    override suspend fun removeItem(id: Int): Int {
         val products = getProducts().single().toMutableList().apply {
             val product = firstOrNull { it.id == id }
             if (product != null) {
@@ -50,27 +50,39 @@ class CartRepositoryImpl @Inject constructor(
         dataStore.edit { preferences ->
             preferences[cartsKey] = Gson().toJson(products)
         }
+        return products.size
     }
 
-    override suspend fun getProducts(): Flow<List<ProductItem>> {
-        return dataStore.data.catch { exception ->
+    override suspend fun getProducts(): List<ProductItem> {
+         dataStore.data.catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
         }.map { preferences ->
-            val type = object : TypeToken<ArrayList<ProductItem>>() {}.type
-            val result: ArrayList<ProductItem> = parseArray(
-                json = preferences[cartsKey].orEmpty(), typeToken = type
-            )
-            result.toList()
+
+            val localProducts = preferences[cartsKey]
+            if (localProducts.isNullOrEmpty()) {
+                initCartsDataStore()
+                emptyList()
+            } else {
+                val result: ArrayList<ProductItem> = jsonToProducts(localProducts)
+                result.toList()
+            }
         }
     }
 
-    inline fun <reified T> parseArray(json: String, typeToken: Type): T {
+    private fun jsonToProducts(localProducts: String): ArrayList<ProductItem> {
+        val type = object : TypeToken<ArrayList<ProductItem>>() {}.type
+        return parseArray(
+            json = localProducts, typeToken = type
+        )
+    }
+
+    private inline fun <reified T> parseArray(json: String, typeToken: Type): T {
         val gson = GsonBuilder().create()
-        return gson.fromJson<T>(json, typeToken)
+        return gson.fromJson(json, typeToken)
     }
 
     companion object {

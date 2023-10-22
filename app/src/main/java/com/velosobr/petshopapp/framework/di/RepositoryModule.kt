@@ -1,6 +1,8 @@
 package com.velosobr.petshopapp.framework.di
 
+import com.velosobr.petshopapp.data.repository.CartRepository
 import com.velosobr.petshopapp.data.repository.ProductItemsRepository
+import com.velosobr.petshopapp.framework.CartRepositoryImpl
 import com.velosobr.petshopapp.framework.ProductItemsRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -13,5 +15,8 @@ interface RepositoryModule {
 
     @Binds
     fun bindProductItemsRepository(repository: ProductItemsRepositoryImpl): ProductItemsRepository
+
+    @Binds
+    fun bindCartRepository(repository: CartRepositoryImpl): CartRepository
 
 }

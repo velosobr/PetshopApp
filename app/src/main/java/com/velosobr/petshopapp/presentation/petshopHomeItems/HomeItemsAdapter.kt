@@ -1,6 +1,5 @@
 package com.velosobr.petshopapp.presentation.petshopHomeItems
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -11,7 +10,9 @@ import com.velosobr.petshopapp.R
 import com.velosobr.petshopapp.databinding.PetshopProductItemBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
 
-class HomeItemsAdapter : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
+class HomeItemsAdapter(
+    private val onClickButton: (ProductItem) -> Unit
+) : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(val binding: PetshopProductItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -50,7 +51,7 @@ class HomeItemsAdapter : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
         holder.binding.apply {
             descriptionText.text = currentProductItem.description
             amountText.text =
-                holder.binding.amountText.context.getString(
+                root.context.getString(
                     R.string.valor_amount,
                     currentProductItem.amount
                 )
@@ -58,8 +59,26 @@ class HomeItemsAdapter : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
             imagePetshopItem.load(currentProductItem.imageUrl) {
                 crossfade(true)
                 crossfade(1000)
+            }
+
+            productCartButton.setOnClickListener {
+                val productSelected =
+                    currentProductItem.copy(isAddedToCart = !currentProductItem.isAddedToCart)
+
+                productItemList = productItemList.map { productItem ->
+                    if (productItem.id == currentProductItem.id) {
+                        productSelected
+                    } else {
+                        productItem
+                    }
+                }
+                productCartButton.text = if (productSelected.isAddedToCart) "- remove" else "+ add"
+                notifyItemChanged(position)
+
+                onClickButton(productSelected)
 
             }
+
         }
     }
 }

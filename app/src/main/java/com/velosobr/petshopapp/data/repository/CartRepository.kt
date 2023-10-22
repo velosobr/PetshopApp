@@ -5,7 +5,7 @@ import com.velosobr.petshopapp.framework.network.response.DataWrapperResponse
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
-    suspend fun AddItem(item: ProductItem)
-    suspend fun RemoveItem(id: Int)
-    suspend fun getProducts(): Flow<List<ProductItem>>
+    suspend fun addItem(item: ProductItem): Int
+    suspend fun removeItem(id: Int): Int
+    suspend fun getProducts(): List<ProductItem>
 }

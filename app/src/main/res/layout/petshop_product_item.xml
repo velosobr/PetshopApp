@@ -49,7 +49,7 @@
             tools:text="500,00" />
 
         <Button
-            android:id="@+id/addItem"
+            android:id="@+id/product_cart_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

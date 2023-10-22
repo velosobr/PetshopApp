@@ -6,5 +6,6 @@ data class ProductItem(
     val weight: String,
     val quantity: Int,
     val amount: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val isAddedToCart: Boolean = false
 )
