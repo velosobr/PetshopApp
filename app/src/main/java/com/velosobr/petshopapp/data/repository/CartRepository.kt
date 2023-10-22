@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
     suspend fun AddItem(item: ProductItem)
-    suspend fun RemoveItem(id: String)
-    suspend fun getProducts(): List<ProductItem>
+    suspend fun RemoveItem(id: Int)
+    suspend fun getProducts(): Flow<List<ProductItem>>
 }
