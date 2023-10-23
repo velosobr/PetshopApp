@@ -9,4 +9,5 @@ sealed class HomeItemsState {
     data class CartError(val message: String) : HomeItemsState()
     data class CartItemAdded(val count: Int): HomeItemsState()
     data class CartItemRemoved(val count: Int): HomeItemsState()
+    data class CartItemsQuantity(val count: Int): HomeItemsState()
 }

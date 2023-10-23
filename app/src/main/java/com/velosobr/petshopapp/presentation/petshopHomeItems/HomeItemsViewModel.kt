@@ -54,10 +54,6 @@ class HomeItemsViewModel @Inject constructor(
         }
     }
 
-    fun getProductsFromLocalData() = viewModelScope.launch {
-        getProductsFromLocalDataUseCase.invoke()
-    }
-
     fun updateCart(productItem: ProductItem) {
         if (productItem.isAddedToCart) {
             addItemToCart(productItem)
@@ -65,4 +61,13 @@ class HomeItemsViewModel @Inject constructor(
             removeItemToCart(productItem.id)
         }
     }
+
+    fun getCartQuantityItems() = viewModelScope.launch {
+        runCatching {
+            _state.value = HomeItemsState.CartItemsQuantity(getProductsFromLocalDataUseCase.invoke().size)
+        }.onFailure {
+            _state.value = HomeItemsState.CartError(it.message.orEmpty())
+        }
+    }
+
 }

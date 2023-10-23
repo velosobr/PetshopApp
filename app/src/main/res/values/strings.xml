@@ -9,9 +9,11 @@
     <string name="details_screen_title">Details</string>
     <string name="cart_screen_title">Cart</string>
     <string name="error_loading_petshop_items">Error when trying to load Petshop Items</string>
+    <string name="error_loading_cart_items">Error when trying to load Cart Items</string>
     <string name="common_try_again">Try again\n</string>
     <string name="addItem">+ add</string>
     <string name="removeItem">-</string>
     <string name="valor_amount">R$ %1$s</string>
+    <string name="share_text">Compartilhar</string>
 
 </resources>

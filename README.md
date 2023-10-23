@@ -23,6 +23,7 @@ separate into core and app modules
 create a cache for offline first with a new datasource layer
 
 ## improvements done
-
+    - verificar se precisar limpar carrinho
 
 ## TO DO
+    

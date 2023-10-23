@@ -1,4 +1,4 @@
-package com.velosobr.petshopapp.presentation.petshopHomeItems
+package com.velosobr.petshopapp.presentation.petshopCart
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.velosobr.petshopapp.R
+import com.velosobr.petshopapp.databinding.CartProductItemBinding
 import com.velosobr.petshopapp.databinding.PetshopProductItemBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
 
-class HomeItemsAdapter(
-    private val products: List<ProductItem>,
-    private val onClickButton: (ProductItem) -> Unit
-) : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
+class CartAdapter(
+    products: List<ProductItem>,
+) : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(val binding: PetshopProductItemBinding) :
+    inner class MyViewHolder(val binding: CartProductItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private var productItemList: MutableList<ProductItem> = products.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            PetshopProductItemBinding.inflate(
+            CartProductItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -41,27 +41,11 @@ class HomeItemsAdapter(
                     currentProductItem.amount
                 )
 
-            imagePetshopItem.load(currentProductItem.imageUrl) {
+            imageCartItem.load(currentProductItem.imageUrl) {
                 crossfade(true)
                 crossfade(1000)
             }
 
-            productCartButton.setOnClickListener {
-                val productSelected =
-                    currentProductItem.copy(isAddedToCart = !currentProductItem.isAddedToCart)
-
-                productItemList = productItemList.map { productItem ->
-                    if (productItem.id == currentProductItem.id) {
-                        productSelected
-                    } else {
-                        productItem
-                    }
-                }.toMutableList()
-                productCartButton.text = if (productSelected.isAddedToCart) "- remove" else "+ add"
-                notifyDataSetChanged()
-                onClickButton(productSelected)
-
-            }
 
         }
     }
