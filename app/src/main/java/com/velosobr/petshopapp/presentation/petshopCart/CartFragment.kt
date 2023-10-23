@@ -10,11 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.velosobr.petshopapp.databinding.FragmentCartBinding
-import com.velosobr.petshopapp.databinding.FragmentHomeItemsBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
-import com.velosobr.petshopapp.presentation.petshopHomeItems.HomeItemsAdapter
-import com.velosobr.petshopapp.presentation.petshopHomeItems.HomeItemsState
-import com.velosobr.petshopapp.presentation.petshopHomeItems.HomeItemsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

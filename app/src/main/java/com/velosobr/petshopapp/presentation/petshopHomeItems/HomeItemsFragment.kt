@@ -16,6 +16,7 @@ import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.velosobr.petshopapp.R
 import com.velosobr.petshopapp.databinding.FragmentHomeItemsBinding
+import com.velosobr.petshopapp.presentation.petshopItemDetails.DetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalBadgeUtils
@@ -83,9 +84,12 @@ class HomeItemsFragment : Fragment() {
             includeViewHomeItemsLoadingState.shimmerPetshopItems.visibility = View.GONE
             includeViewPetshopItemsErrorState.root.visibility = View.GONE
             recyclerPetshopItems.visibility = View.VISIBLE
-            homeItemsAdapter = HomeItemsAdapter(homeItemsState.items) {
-                viewModel.updateCart(it)
-            }
+            homeItemsAdapter = HomeItemsAdapter(
+                homeItemsState.items,
+                viewModel::updateCart,
+                ::onClickButtonCallDetails
+            )
+
             with(recyclerPetshopItems) {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
@@ -96,6 +100,10 @@ class HomeItemsFragment : Fragment() {
 
     private fun handleCartError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun onClickButtonCallDetails() {
+        findNavController().navigate(R.id.detailsFragment)
     }
 
     private fun configureBadgeCount(count: Int = 0) {

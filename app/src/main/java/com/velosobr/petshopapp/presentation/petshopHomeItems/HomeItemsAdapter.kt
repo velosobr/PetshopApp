@@ -2,17 +2,21 @@ package com.velosobr.petshopapp.presentation.petshopHomeItems
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import androidx.navigation.fragment.findNavController
+
 import com.velosobr.petshopapp.R
 import com.velosobr.petshopapp.databinding.PetshopProductItemBinding
 import com.velosobr.petshopapp.domain.model.ProductItem
 
 class HomeItemsAdapter(
     private val products: List<ProductItem>,
-    private val onClickButton: (ProductItem) -> Unit
+    private val onClickButton: (ProductItem) -> Unit,
+    private val onClickButtonCallDetails: () -> Unit
 ) : RecyclerView.Adapter<HomeItemsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(val binding: PetshopProductItemBinding) :
@@ -44,6 +48,9 @@ class HomeItemsAdapter(
             imagePetshopItem.load(currentProductItem.imageUrl) {
                 crossfade(true)
                 crossfade(1000)
+            }
+            imagePetshopItem.setOnClickListener {
+                onClickButtonCallDetails()
             }
 
             productCartButton.setOnClickListener {

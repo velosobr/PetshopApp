@@ -20,10 +20,12 @@
             android:layout_height="150dp"
             android:importantForAccessibility="no"
             android:scaleType="centerInside"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/description_text"
