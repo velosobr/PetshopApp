@@ -14,11 +14,11 @@ import javax.inject.Inject
  * Depende de uma abstração e não de uma implementação
  */
 class ProductItemsRepositoryImpl @Inject constructor(
-    private val petshopApiService: PetshopApiService
+    private val petShopApiService: PetshopApiService
 ) : ProductItemsRepository {
     override suspend fun getProductItems(): List<ProductItem> =
         try {
-            petshopApiService
+            petShopApiService
                 .getPetshopItems()
                 .productList
                 .map {
@@ -28,6 +28,4 @@ class ProductItemsRepositoryImpl @Inject constructor(
             e.printStackTrace()
             listOf<ProductItem>()
         }
-
-
 }

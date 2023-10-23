@@ -46,7 +46,7 @@ class CartAdapter(
                 crossfade(1000)
             }
 
-
+            productItemList
         }
     }
 }

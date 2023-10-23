@@ -5,7 +5,7 @@ import com.velosobr.petshopapp.usecase.AddProductItemToCartUsecaseImpl
 import com.velosobr.petshopapp.usecase.GetPetShopProductUseCase
 import com.velosobr.petshopapp.usecase.GetPetShopProductUseCaseImpl
 import com.velosobr.petshopapp.usecase.GetProductsFromLocalDataUseCase
-import com.velosobr.petshopapp.usecase.GetProductsFromLocalDataUsecaseImpl
+import com.velosobr.petshopapp.usecase.GetProductsFromLocalDataUseCaseImpl
 import com.velosobr.petshopapp.usecase.RemoveProductItemToCartUseCase
 import com.velosobr.petshopapp.usecase.RemoveProductItemToCartUseCaseImpl
 import dagger.Binds
@@ -27,6 +27,6 @@ interface UseCaseModule {
     fun bindRemoveProductItemToCartUseCase(useCase: RemoveProductItemToCartUseCaseImpl): RemoveProductItemToCartUseCase
 
     @Binds
-    fun bindGetProductsFromLocalDataUseCase(useCase: GetProductsFromLocalDataUsecaseImpl): GetProductsFromLocalDataUseCase
+    fun bindGetProductsFromLocalDataUseCase(useCase: GetProductsFromLocalDataUseCaseImpl): GetProductsFromLocalDataUseCase
 
 }

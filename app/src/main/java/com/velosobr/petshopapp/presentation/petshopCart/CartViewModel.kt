@@ -26,7 +26,15 @@ class CartViewModel @Inject constructor(
 
     fun fetchCartProductItems() = viewModelScope.launch {
         runCatching {
-            _state.value = CartState.Success( getProductsFromLocalDataUseCase.invoke())
+            _state.postValue(CartState.Success(getProductsFromLocalDataUseCase.invoke()))
+        }.onFailure {
+            _state.postValue(CartState.Error(it.message.orEmpty()))
+        }
+    }
+
+    fun getCartQuantityItems() = viewModelScope.launch {
+        runCatching {
+            _state.value = CartState.Share(getProductsFromLocalDataUseCase.invoke())
         }.onFailure {
             _state.value = CartState.Error(it.message.orEmpty())
         }
