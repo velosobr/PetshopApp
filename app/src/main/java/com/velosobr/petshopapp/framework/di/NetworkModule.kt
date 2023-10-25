@@ -1,6 +1,6 @@
 package com.velosobr.petshopapp.framework.di
 
-import com.facebook.shimmer.BuildConfig
+import com.velosobr.petshopapp.BuildConfig
 import com.velosobr.petshopapp.framework.network.PetshopApiService
 import dagger.Module
 import dagger.Provides
@@ -46,7 +46,7 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
     ): PetshopApiService {
         return Retrofit.Builder()
-            .baseUrl("https://run.mocky.io/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
